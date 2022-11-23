@@ -14,6 +14,7 @@ import com.survey.jobdata.entity.Output;
 import com.survey.jobdata.service.JobDataService;
 
 @Controller
+@RequestMapping(value = "/api")
 public class JobDataRest {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JobDataRest.class);

@@ -2,6 +2,8 @@ package com.survey.jobdata.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,18 +102,22 @@ public class JobDataService {
 					.findAll(Sort.by(sort_type.equals("desc") ? Sort.Direction.DESC : Sort.Direction.ASC, sort_by));
 			return new PagedResult<JobData>(jobDataList, jobDataList.size(), "Success");
 		} catch (Exception ex) {
+			
+			LOG.error("sortDataList::" + ex.getMessage());
 			return new PagedResult<JobData>(jobDataList, jobDataList.size(), "Failed.Cannot get data");
 		}
 
 	}
 
-	public PagedResult<Object[]> filterBySparseData(String fieldName) {
-		List<Object[]> jobDataList = new ArrayList<Object[]>();
+	public PagedResult<Map<String, String>> filterBySparseData(String fieldName) {
+		List<Map<String, String>> jobDataList = new ArrayList<Map<String, String>>();
 		try {
 			jobDataList = queryRepo.filterBySparseData(fieldName);
-			return new PagedResult<Object[]>(jobDataList, jobDataList.size(), "Success");
+			
+			return new PagedResult<Map<String, String>>(jobDataList, jobDataList.size(), "Success");
 		} catch (Exception ex) {
-			return new PagedResult<Object[]>(jobDataList, jobDataList.size(), "Failed.Cannot get data");
+			LOG.error("filterBySparseData::" + ex.getMessage());
+			return new PagedResult<Map<String, String>>(jobDataList, jobDataList.size(), "Failed.Cannot get data");
 		}
 
 	}
